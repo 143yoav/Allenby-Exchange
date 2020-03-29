@@ -1,0 +1,25 @@
+{
+  "name": "allenby-exchange",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cli.js",
+  "bin": "cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/143yoav/Allenby-Exchange.git"
+  },
+  "author": "Yoav Avidan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/143yoav/Allenby-Exchange/issues"
+  },
+  "homepage": "https://github.com/143yoav/Allenby-Exchange#readme",
+  "dependencies": {
+    "args": "^5.0.1",
+    "axios": "^0.19.2",
+    "express": "^4.17.1"
+  }
+}
