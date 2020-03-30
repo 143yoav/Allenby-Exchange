@@ -1,8 +1,5 @@
 const moment = require('moment');
-const {
-  commissionPercent,
-  dailyCommissionPercent
-} = require('../../config/currency.json');
+const config = require('../../config/config');
 
 const createConvertReceipt = data =>
   `
@@ -10,9 +7,12 @@ Convert details:
         From Amount: ${data.amount} 
         From Currency: ${data.from.toUpperCase()} 
         To Currency: ${data.to.toUpperCase()} 
-        Commission: ${commissionPercent}%
+        Commission: ${config.get('currency.base-commission')}%
         Amount Before Commission: ${data.converted}
-        Amount: ${subCommission(data.converted, commissionPercent)}
+        Amount: ${subCommission(
+          data.converted,
+          config.get('currency.base-commission')
+        )}
 `;
 
 const createLoanReceipt = data =>
@@ -39,6 +39,11 @@ Loan end:
         Loan End: ${moment().format('YYYY-MM-DD')}
 ` + createLoanReceipt(data);
 
+const createConfigReceipt = ({ field, value }) =>
+  `
+${field} changed to: ${value}%
+`;
+
 const subCommission = (amount, commission) =>
   ((1 - commission / 100) * amount).toFixed(2);
 
@@ -48,7 +53,8 @@ const calcTotalCommission = ({ base, daily, date }) =>
 const receipts = {
   convert: createConvertReceipt,
   loan: createLoanReceipt,
-  'end-loan': createEndLoanReceipt
+  'end-loan': createEndLoanReceipt,
+  config: createConfigReceipt
 };
 
 const generate = (action, data) => receipts[action](data);

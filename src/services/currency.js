@@ -6,6 +6,7 @@ const {
   formatConverted,
   formatLoan
 } = require('../formatters/currency');
+const config = require('../../config/config');
 
 const handleConvert = async (amount, from, to = 'ils') => {
   try {
@@ -51,8 +52,18 @@ const handleEndLoan = async (id, currency) => {
   }
 };
 
+const handleConfig = async (field, value) => {
+  try {
+    config.set(`currency.${field}`, parseFloat(value));
+    return receipt.generate('config', { field, value });
+  } catch (error) {
+    throw new Error('could not perform configuration');
+  }
+};
+
 module.exports = {
   convert: handleConvert,
   loan: handleLoan,
-  'end-loan': handleEndLoan
+  'end-loan': handleEndLoan,
+  config: handleConfig
 };
