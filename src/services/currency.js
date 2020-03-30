@@ -10,8 +10,7 @@ const config = require('../../config/config');
 
 const handleConvert = async (amount, from, to = 'ils') => {
   try {
-    //const converted = await convert(amount, from, to);
-    const converted = 360.5;
+    const converted = await convert(amount, from, to);
     return receipt.generate('convert', { converted, amount, from, to });
   } catch (error) {
     throw new Error('could not perform conversion');
