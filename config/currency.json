@@ -1,0 +1,6 @@
+{
+  "CurrencyServiceApi": "http://api.serpstack.com/search",
+  "CurrencyServiceKey": "af03c76203f00d8aa4338cc90a8cdfd9",
+  "base-commissiom": 5,
+  "daily-commissiom": 0.5
+}
