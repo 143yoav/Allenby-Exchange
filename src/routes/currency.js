@@ -9,6 +9,22 @@ router.get(
   currencyController.convert
 );
 
+router.post(
+  '/loan',
+  fieldsValidator(['amount', 'currency']),
+  currencyController.loan
+);
 
+router.post(
+  '/end-loan',
+  fieldsValidator(['id', 'currency']),
+  currencyController.endLoan
+);
+
+router.post(
+  '/config',
+  fieldsValidator(['field', 'value']),
+  currencyController.config
+);
 
 module.exports = router;

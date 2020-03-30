@@ -12,6 +12,6 @@ module.exports = fields => (req, res, next) => {
   );
 
   validator(source, rules, (err, status) => {
-    status ? next() : es.status(400).send(err);
+    status ? next() : res.status(400).send(err);
   });
 };
