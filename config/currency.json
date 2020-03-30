@@ -2,5 +2,5 @@
   "CurrencyServiceApi": "http://api.serpstack.com/search",
   "CurrencyServiceKey": "af03c76203f00d8aa4338cc90a8cdfd9",
   "commissionPercent": 5,
-  "dailyCommissionPercent": 5
+  "dailyCommissionPercent": 0.5
 }
