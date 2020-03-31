@@ -1,25 +1,26 @@
 const axios = require('axios');
+const { apiURL } = require('./config/config').all.cliCES;
 
 const actions = {
   convert: {
     method: 'get',
     location: 'params',
-    variables: ['amount', 'from', 'to']
+    fields: ['amount', 'from', 'to']
   },
   loan: {
     method: 'post',
     location: 'data',
-    variables: ['amount', 'currency']
+    fields: ['amount', 'currency']
   },
   'end-loan': {
     method: 'post',
     location: 'data',
-    variables: ['id', 'currency']
+    fields: ['id', 'currency']
   },
   config: {
     method: 'post',
     location: 'data',
-    variables: ['field', 'value']
+    fields: ['field', 'value']
   }
 };
 
@@ -33,12 +34,12 @@ const run = async () => {
     const params = process.argv.slice(3, process.argv.length);
 
     const result = await axios({
-      url: `http://localhost:3002/api/currency/${process.argv[2]}`,
+      url: `${apiURL}${process.argv[2]}`,
       method: action.method,
-      [action.location]: action.variables.reduce(
-        (obj, variable, index) => ({
+      [action.location]: action.fields.reduce(
+        (obj, field, index) => ({
           ...obj,
-          [variable]: params[index]
+          [field]: params[index]
         }),
         {}
       )
