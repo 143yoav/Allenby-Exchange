@@ -26,12 +26,12 @@ const actions = {
 
 const run = async () => {
   try {
-    if (process.argv.length == 2) {
-      throw new Error('<action> <params>');
-    }
-
     const action = actions[process.argv[2]];
     const params = process.argv.slice(3, process.argv.length);
+
+    if (!action) {
+      throw new Error('action is undefined. pattern :<action> <params>');
+    }
 
     const result = await axios({
       url: `${apiURL}${process.argv[2]}`,
@@ -44,10 +44,13 @@ const run = async () => {
         {}
       )
     });
-
     console.log(result.data);
   } catch (error) {
-    console.log(error.message);
+    if (error.response) {
+      console.log(JSON.stringify(error.response.data));
+    } else {
+      console.log(error.message);
+    }
   }
 };
 
