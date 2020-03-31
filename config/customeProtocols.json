@@ -1,0 +1,7 @@
+{
+  "port": 8119,
+  "connTimeOut": 10000,
+  "actions": ["convert", "loan", "end-loan"],
+  "currency": ["ILS", "USD", "EUR"],
+  "success": [false, true]
+}

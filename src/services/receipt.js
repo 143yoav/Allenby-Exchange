@@ -45,10 +45,10 @@ ${field} changed to: ${value}%
 `;
 
 const subCommission = (amount, commission) =>
-  ((1 - commission / 100) * amount).toFixed(2);
+  Math.max(((1 - commission / 100) * amount).toFixed(2), 0);
 
 const calcTotalCommission = ({ base, daily, date }) =>
-  base + daily * moment().diff(date, 'days');
+  Math.min(base + daily * moment().diff(date, 'days'), 100);
 
 const receipts = {
   convert: createConvertReceipt,
