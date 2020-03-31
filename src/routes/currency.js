@@ -7,7 +7,7 @@ const permissions = require('../middlewares/permissions');
 router.get(
   '/convert',
   permissions,
-  fieldsValidator(['amount', 'from', 'to']),
+  fieldsValidator(['amount', 'from']),
   currencyController.convert
 );
 

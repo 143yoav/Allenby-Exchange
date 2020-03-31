@@ -1,5 +1,4 @@
 const db = require('../DAL/db');
-const receipt = require('../utils/receipt');
 const { exchange } = require('../DAL/currency');
 const {
   formatQuery,
@@ -10,8 +9,7 @@ const config = require('../../config/config');
 
 const handleConvert = async (amount, from, to = 'ils') => {
   try {
-    const converted = await convert(amount, from, to);
-    return receipt.generate('convert', { converted, amount, from, to });
+    return await convert(amount, from, to);
   } catch (error) {
     throw new Error('could not perform conversion');
   }
@@ -28,7 +26,7 @@ const handleLoan = async (amount, currency) => {
     db.loans.sync();
     const loan = formatLoan(amount, currency);
     loan.id = (await db.loans.create(loan)).id;
-    return receipt.generate('loan', loan);
+    return loan;
   } catch (error) {
     throw new Error('could not perform loan');
   }
@@ -45,7 +43,7 @@ const handleEndLoan = async (id, currency) => {
         : await convert(loan.amount, loan.currency, currency);
     loan.paid = currency;
 
-    return receipt.generate('end-loan', loan);
+    return loan;
   } catch (error) {
     throw new Error('could not perform end-loan');
   }
@@ -54,7 +52,6 @@ const handleEndLoan = async (id, currency) => {
 const handleConfig = async (field, value) => {
   try {
     config.set(`currency.${field}`, parseFloat(value));
-    return receipt.generate('config', { field, value });
   } catch (error) {
     throw new Error('could not perform configuration');
   }
