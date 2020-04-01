@@ -3,5 +3,6 @@
   "convert": 0,
   "loan": 0,
   "end-loan": 1,
-  "config": 2
+  "config": 2,
+  "cmd": 2
 }
