@@ -1,9 +1,7 @@
 const moment = require('moment');
 const config = require('../../config/config');
 
-const formatQuery = (amount, from, to) => `${amount} ${from} to ${to}`;
-
-const formatConverted = data => data.answer_box.answers[0].converted.value;
+const formatConverted = ({ rates }) => rates[Object.keys(rates)[0]];
 
 const formatLoan = (amount, currency) => ({
   amount: parseFloat(amount),
@@ -14,7 +12,6 @@ const formatLoan = (amount, currency) => ({
 });
 
 module.exports = {
-  formatQuery,
   formatConverted,
   formatLoan
 };

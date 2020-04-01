@@ -1,15 +1,12 @@
 const axios = require('axios');
-const {
-  CurrencyServiceApi,
-  CurrencyServiceKey
-} = require('../../config/config').all.currency;
+const { CurrencyServiceApi } = require('../../config/config').all.currency;
 
-const exchange = async query => {
+const exchange = async ({ from, to }) => {
   try {
     return await axios.get(CurrencyServiceApi, {
       params: {
-        access_key: CurrencyServiceKey,
-        query
+        base: from.toUpperCase(),
+        symbols: to.toUpperCase()
       }
     });
   } catch (error) {
