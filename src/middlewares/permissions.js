@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
   try {
     const { client_id } = jwt.verify(
       req.headers.token,
-      config.get('permissions.key')
+      config.get('permissions.secret')
     );
 
     if (client_id < config.get(`permissions.${req.path.substring(1)}`)) {

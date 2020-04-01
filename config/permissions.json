@@ -1,8 +1,10 @@
 {
-  "key": "allenby-exchange",
-  "convert": 0,
-  "loan": 0,
-  "end-loan": 1,
+  "secret": "allenby-exchange",
+  "convert": 1,
+  "loan": 1,
+  "end-loan": 2,
   "config": 2,
-  "cmd": 2
+  "cmd": 2,
+  "googleTokenURL": "https://www.googleapis.com/oauth2/v1/tokeninfo",
+  "expiresIn": "1h"
 }
