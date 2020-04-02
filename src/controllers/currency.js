@@ -4,11 +4,8 @@ const receiptService = require('../services/receipt');
 const convert = async (req, res) => {
   try {
     const { amount, from, to = 'ils' } = req.query;
-    const converted = await currencyService.convert(amount, from, to);
-    const receipt = receiptService.generate('convert', {
-      ...req.body,
-      converted
-    });
+    const data = await currencyService.convert(amount, from, to);
+    const receipt = receiptService.generate('convert', data);
 
     res.status(200).send(receipt);
   } catch (error) {

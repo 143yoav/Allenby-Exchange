@@ -1,6 +1,5 @@
 {
-  "CurrencyServiceApi": "http://api.serpstack.com/search",
-  "CurrencyServiceKey": "71cbfa8b9cec05a4dc7d27f2cb4b2907",
+  "CurrencyServiceApi": "https://api.exchangeratesapi.io/latest",
   "base-commission": 5,
   "daily-commission": 0.5
 }

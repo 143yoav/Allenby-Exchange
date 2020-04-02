@@ -1,24 +1,20 @@
 const db = require('../DAL/db');
 const { exchange } = require('../DAL/currency');
-const {
-  formatQuery,
-  formatConverted,
-  formatLoan
-} = require('../formatters/currency');
+const { formatConverted, formatLoan } = require('../formatters/currency');
 const config = require('../../config/config');
 
 const handleConvert = async (amount, from, to = 'ils') => {
   try {
-    return await convert(amount, from, to);
+    const converted = await convert(amount, from, to);
+    return { converted, amount, from, to };
   } catch (error) {
     throw new Error('could not perform conversion');
   }
 };
 
 const convert = async (amount, from, to) => {
-  const query = formatQuery(amount, from, to);
-  const result = await exchange(query);
-  return formatConverted(result.data);
+  const rate = await exchange({ from, to });
+  return parseFloat(amount) * formatConverted(rate.data);
 };
 
 const handleLoan = async (amount, currency) => {
@@ -52,6 +48,7 @@ const handleEndLoan = async (id, currency) => {
 const handleConfig = async (field, value) => {
   try {
     config.set(`currency.${field}`, parseFloat(value));
+    return { field, value };
   } catch (error) {
     throw new Error('could not perform configuration');
   }

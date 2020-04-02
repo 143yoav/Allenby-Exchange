@@ -24,17 +24,17 @@ const actions = {
   }
 };
 
-const run = async () => {
+const run = async args => {
   try {
-    const action = actions[process.argv[2]];
-    const params = process.argv.slice(3, process.argv.length);
+    const action = actions[args[2]];
+    const params = args.slice(3, args.length);
 
     if (!action) {
       throw new Error('action is undefined. pattern :<action> <params>');
     }
 
     const result = await axios({
-      url: `${apiURL}${process.argv[2]}`,
+      url: `${apiURL}${args[2]}`,
       method: action.method,
       [action.location]: action.fields.reduce(
         (obj, field, index) => ({
@@ -44,7 +44,7 @@ const run = async () => {
         {}
       )
     });
-    
+
     console.log(result.data);
   } catch (error) {
     if (error.response) {
@@ -55,4 +55,4 @@ const run = async () => {
   }
 };
 
-run();
+run(process.argv);
