@@ -23,7 +23,8 @@ class robListener {
 
       robHandler[desirialized.cmd](desirialized)
         .then(res => {
-          socket.write(robSerializer.serialize({ ...res, success: true }));
+          res.success = true;
+          socket.write(robSerializer.serialize(res));
         })
         .catch(err => {
           socket.write(robSerializer.serialize({ success: false }));
