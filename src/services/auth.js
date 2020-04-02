@@ -14,6 +14,7 @@ const verify = async access_token => {
       }
     });
 
+    //sends admin permissions
     if (res.data.access_type == 'online') {
       return jwt.sign({ client_id: 2 }, secret, { expiresIn });
     }
